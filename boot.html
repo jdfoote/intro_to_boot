@@ -1,0 +1,790 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <title>Boot Tutorial</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="boot_files/reveal.js-3.3.0.1/css/reveal.css"/>
+
+
+<style type="text/css">
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; position: absolute; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; }
+pre.numberSource a.sourceLine:empty
+  { position: absolute; }
+pre.numberSource a.sourceLine::before
+  { content: attr(data-line-number);
+    position: absolute; left: -5em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<link rel="stylesheet" href="boot_files/reveal.js-3.3.0.1/css/theme/white.css" id="theme">
+
+
+
+
+  <!-- some tweaks to reveal css -->
+  <style type="text/css">
+    .reveal h1 { font-size: 2.0em; }
+    .reveal h2 { font-size: 1.5em;  }
+    .reveal h3 { font-size: 1.25em;	}
+    .reveal h4 { font-size: 1em;	}
+
+    .reveal .slides>section,
+    .reveal .slides>section>section {
+      padding: 0px 0px;
+    }
+
+
+
+    .reveal table {
+      border-width: 1px;
+      border-spacing: 2px;
+      border-style: dotted;
+      border-color: gray;
+      border-collapse: collapse;
+      font-size: 0.7em;
+    }
+
+    .reveal table th {
+      border-width: 1px;
+      padding-left: 10px;
+      padding-right: 25px;
+      font-weight: bold;
+      border-style: dotted;
+      border-color: gray;
+    }
+
+    .reveal table td {
+      border-width: 1px;
+      padding-left: 10px;
+      padding-right: 25px;
+      border-style: dotted;
+      border-color: gray;
+    }
+
+
+  </style>
+
+    <style type="text/css">code{white-space: pre;}</style>
+
+
+<!-- Printing and PDF exports -->
+<script id="paper-css" type="application/dynamic-css">
+
+/* Default Print Stylesheet Template
+   by Rob Glazebrook of CSSnewbie.com
+   Last Updated: June 4, 2008
+
+   Feel free (nay, compelled) to edit, append, and
+   manipulate this file as you see fit. */
+
+
+@media print {
+
+	/* SECTION 1: Set default width, margin, float, and
+	   background. This prevents elements from extending
+	   beyond the edge of the printed page, and prevents
+	   unnecessary background images from printing */
+	html {
+		background: #fff;
+		width: auto;
+		height: auto;
+		overflow: visible;
+	}
+	body {
+		background: #fff;
+		font-size: 20pt;
+		width: auto;
+		height: auto;
+		border: 0;
+		margin: 0 5%;
+		padding: 0;
+		overflow: visible;
+		float: none !important;
+	}
+
+	/* SECTION 2: Remove any elements not needed in print.
+	   This would include navigation, ads, sidebars, etc. */
+	.nestedarrow,
+	.controls,
+	.fork-reveal,
+	.share-reveal,
+	.state-background,
+	.reveal .progress,
+	.reveal .backgrounds {
+		display: none !important;
+	}
+
+	/* SECTION 3: Set body font face, size, and color.
+	   Consider using a serif font for readability. */
+	body, p, td, li, div {
+		font-size: 20pt!important;
+		font-family: Georgia, "Times New Roman", Times, serif !important;
+		color: #000;
+	}
+
+	/* SECTION 4: Set heading font face, sizes, and color.
+	   Differentiate your headings from your body text.
+	   Perhaps use a large sans-serif for distinction. */
+	h1,h2,h3,h4,h5,h6 {
+		color: #000!important;
+		height: auto;
+		line-height: normal;
+		font-family: Georgia, "Times New Roman", Times, serif !important;
+		text-shadow: 0 0 0 #000 !important;
+		text-align: left;
+		letter-spacing: normal;
+	}
+	/* Need to reduce the size of the fonts for printing */
+	h1 { font-size: 28pt !important;  }
+	h2 { font-size: 24pt !important; }
+	h3 { font-size: 22pt !important; }
+	h4 { font-size: 22pt !important; font-variant: small-caps; }
+	h5 { font-size: 21pt !important; }
+	h6 { font-size: 20pt !important; font-style: italic; }
+
+	/* SECTION 5: Make hyperlinks more usable.
+	   Ensure links are underlined, and consider appending
+	   the URL to the end of the link for usability. */
+	a:link,
+	a:visited {
+		color: #000 !important;
+		font-weight: bold;
+		text-decoration: underline;
+	}
+	/*
+	.reveal a:link:after,
+	.reveal a:visited:after {
+		content: " (" attr(href) ") ";
+		color: #222 !important;
+		font-size: 90%;
+	}
+	*/
+
+
+	/* SECTION 6: more reveal.js specific additions by @skypanther */
+	ul, ol, div, p {
+		visibility: visible;
+		position: static;
+		width: auto;
+		height: auto;
+		display: block;
+		overflow: visible;
+		margin: 0;
+		text-align: left !important;
+	}
+	.reveal pre,
+	.reveal table {
+		margin-left: 0;
+		margin-right: 0;
+	}
+	.reveal pre code {
+		padding: 20px;
+		border: 1px solid #ddd;
+	}
+	.reveal blockquote {
+		margin: 20px 0;
+	}
+	.reveal .slides {
+		position: static !important;
+		width: auto !important;
+		height: auto !important;
+
+		left: 0 !important;
+		top: 0 !important;
+		margin-left: 0 !important;
+		margin-top: 0 !important;
+		padding: 0 !important;
+		zoom: 1 !important;
+
+		overflow: visible !important;
+		display: block !important;
+
+		text-align: left !important;
+		-webkit-perspective: none;
+		   -moz-perspective: none;
+		    -ms-perspective: none;
+		        perspective: none;
+
+		-webkit-perspective-origin: 50% 50%;
+		   -moz-perspective-origin: 50% 50%;
+		    -ms-perspective-origin: 50% 50%;
+		        perspective-origin: 50% 50%;
+	}
+	.reveal .slides section {
+		visibility: visible !important;
+		position: static !important;
+		width: auto !important;
+		height: auto !important;
+		display: block !important;
+		overflow: visible !important;
+
+		left: 0 !important;
+		top: 0 !important;
+		margin-left: 0 !important;
+		margin-top: 0 !important;
+		padding: 60px 20px !important;
+		z-index: auto !important;
+
+		opacity: 1 !important;
+
+		page-break-after: always !important;
+
+		-webkit-transform-style: flat !important;
+		   -moz-transform-style: flat !important;
+		    -ms-transform-style: flat !important;
+		        transform-style: flat !important;
+
+		-webkit-transform: none !important;
+		   -moz-transform: none !important;
+		    -ms-transform: none !important;
+		        transform: none !important;
+
+		-webkit-transition: none !important;
+		   -moz-transition: none !important;
+		    -ms-transition: none !important;
+		        transition: none !important;
+	}
+	.reveal .slides section.stack {
+		padding: 0 !important;
+	}
+	.reveal section:last-of-type {
+		page-break-after: avoid !important;
+	}
+	.reveal section .fragment {
+		opacity: 1 !important;
+		visibility: visible !important;
+
+		-webkit-transform: none !important;
+		   -moz-transform: none !important;
+		    -ms-transform: none !important;
+		        transform: none !important;
+	}
+	.reveal section img {
+		display: block;
+		margin: 15px 0px;
+		background: rgba(255,255,255,1);
+		border: 1px solid #666;
+		box-shadow: none;
+	}
+
+	.reveal section small {
+		font-size: 0.8em;
+	}
+
+}  
+</script>
+
+
+<script id="pdf-css" type="application/dynamic-css">
+    
+/**
+ * This stylesheet is used to print reveal.js
+ * presentations to PDF.
+ *
+ * https://github.com/hakimel/reveal.js#pdf-export
+ */
+
+* {
+	-webkit-print-color-adjust: exact;
+}
+
+body {
+	margin: 0 auto !important;
+	border: 0;
+	padding: 0;
+	float: none !important;
+	overflow: visible;
+}
+
+html {
+	width: 100%;
+	height: 100%;
+	overflow: visible;
+}
+
+/* Remove any elements not needed in print. */
+.nestedarrow,
+.reveal .controls,
+.reveal .progress,
+.reveal .playback,
+.reveal.overview,
+.fork-reveal,
+.share-reveal,
+.state-background {
+	display: none !important;
+}
+
+h1, h2, h3, h4, h5, h6 {
+	text-shadow: 0 0 0 #000 !important;
+}
+
+.reveal pre code {
+	overflow: hidden !important;
+	font-family: Courier, 'Courier New', monospace !important;
+}
+
+ul, ol, div, p {
+	visibility: visible;
+	position: static;
+	width: auto;
+	height: auto;
+	display: block;
+	overflow: visible;
+	margin: auto;
+}
+.reveal {
+	width: auto !important;
+	height: auto !important;
+	overflow: hidden !important;
+}
+.reveal .slides {
+	position: static;
+	width: 100%;
+	height: auto;
+
+	left: auto;
+	top: auto;
+	margin: 0 !important;
+	padding: 0 !important;
+
+	overflow: visible;
+	display: block;
+
+	-webkit-perspective: none;
+	   -moz-perspective: none;
+	    -ms-perspective: none;
+	        perspective: none;
+
+	-webkit-perspective-origin: 50% 50%; /* there isn't a none/auto value but 50-50 is the default */
+	   -moz-perspective-origin: 50% 50%;
+	    -ms-perspective-origin: 50% 50%;
+	        perspective-origin: 50% 50%;
+}
+
+.reveal .slides section {
+	page-break-after: always !important;
+
+	visibility: visible !important;
+	position: relative !important;
+	display: block !important;
+	position: relative !important;
+
+	margin: 0 !important;
+	padding: 0 !important;
+	box-sizing: border-box !important;
+	min-height: 1px;
+
+	opacity: 1 !important;
+
+	-webkit-transform-style: flat !important;
+	   -moz-transform-style: flat !important;
+	    -ms-transform-style: flat !important;
+	        transform-style: flat !important;
+
+	-webkit-transform: none !important;
+	   -moz-transform: none !important;
+	    -ms-transform: none !important;
+	        transform: none !important;
+}
+
+.reveal section.stack {
+	margin: 0 !important;
+	padding: 0 !important;
+	page-break-after: avoid !important;
+	height: auto !important;
+	min-height: auto !important;
+}
+
+.reveal img {
+	box-shadow: none;
+}
+
+.reveal .roll {
+	overflow: visible;
+	line-height: 1em;
+}
+
+/* Slide backgrounds are placed inside of their slide when exporting to PDF */
+.reveal section .slide-background {
+	display: block !important;
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	z-index: -1;
+}
+
+/* All elements should be above the slide-background */
+.reveal section>* {
+	position: relative;
+	z-index: 1;
+}
+
+/* Display slide speaker notes when 'showNotes' is enabled */
+.reveal .speaker-notes-pdf {
+	display: block;
+	width: 100%;
+	max-height: none;
+	left: auto;
+	top: auto;
+	z-index: 100;
+}
+
+/* Display slide numbers when 'slideNumber' is enabled */
+.reveal .slide-number-pdf {
+	display: block;
+	position: absolute;
+	font-size: 14px;
+}
+
+</script>
+
+
+<script>
+var style = document.createElement( 'style' );
+style.type = 'text/css';
+var style_script_id = window.location.search.match( /print-pdf/gi ) ? 'pdf-css' : 'paper-css';
+var style_script = document.getElementById(style_script_id).text;
+style.innerHTML = style_script;
+document.getElementsByTagName('head')[0].appendChild(style);
+</script>
+
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+
+
+
+<section class="slide level2">
+
+<style type="text/css">
+
+/* Changes to RevealJS default formatting.
+
+I prefer this style but you can change these to your preferences */
+
+/* This bit lets you do columns */
+.container{
+  display: flex;
+}
+
+.col{
+  flex: 1;
+}
+
+.reveal section img{
+border: none;
+background: none;
+box-shadow: none;
+}
+
+.highlight {
+color: LightCoral;
+}
+
+.reveal h1,
+.reveal h2,
+.reveal h3,
+.reveal h4,
+.reveal h5,
+.reveal h6 {
+text-transform: none;
+}
+
+.reveal h1 {
+margin-top:200px;
+}
+
+div.footnote {
+font-size: 40%;
+text-align: right;
+}
+
+.bg-image{
+width: 180px;
+}
+
+.reveal .slides section .fragment.fade-in-then-out,
+.reveal .slides section .fragment.current-visible {
+  opacity: 0;
+  visibility: hidden; }
+  .reveal .slides section .fragment.fade-in-then-out.current-fragment,
+  .reveal .slides section .fragment.current-visible.current-fragment {
+    opacity: 1;
+    visibility: inherit; }
+
+.reveal .slides section .fragment.fade-in-then-semi-out {
+  opacity: 0;
+  visibility: hidden; }
+  .reveal .slides section .fragment.fade-in-then-semi-out.visible {
+    opacity: 0.5;
+    visibility: inherit; }
+  .reveal .slides section .fragment.fade-in-then-semi-out.current-fragment {
+    opacity: 1;
+visibility: inherit; }
+
+.reveal pre{
+font-size: 17px;
+}
+
+ 
+</style>
+<section>
+<h4>
+Introduction to boot
+</h4>
+<div class="container">
+<div class="col">
+<p><img src="https://cdn.silodrome.com/wp-content/uploads/2015/02/Chippewa-6-Inch-Service-Boot-3.jpg" height="300px"/><br/> <smaller> Jeremy Foote </smaller></p>
+<p><img src='images/cdsc_logo.png' width='150px;'/></p>
+</div>
+</div>
+</section>
+</section>
+<section><section id="bootstrapping" class="title-slide slide level1"><h1>Bootstrapping</h1></section><section id="what-is-it" class="slide level2">
+<h2>What is it?</h2>
+<ul>
+<li class="fragment">Calculating the statistic of interest on “bootstrap resamples” of data
+<ul>
+<li class="fragment">Resamples come by sampling with replacement many times</li>
+</ul></li>
+<li class="fragment"><a href="https://seeing-theory.brown.edu/frequentist-inference/index.html#section3">Seeing Theory</a></li>
+</ul>
+</section><section id="what-is-the-point" class="slide level2">
+<h2>What is the point?</h2>
+<ul>
+<li class="fragment">Estimate statistics when assumptions of parametric models may not hold</li>
+<li class="fragment">Reduce distortions caused by small sample size</li>
+</ul>
+</section><section id="whats-the-catch" class="slide level2">
+<h2>What’s the catch?</h2>
+<ul>
+<li class="fragment">Has its own assumptions:
+<ul>
+<li class="fragment">Sample is representative of population</li>
+<li class="fragment">Samples are independent</li>
+</ul></li>
+</ul>
+</section></section>
+<section><section id="boot-package" class="title-slide slide level1"><h1>Boot package</h1></section><section id="basic-function" class="slide level2">
+<h2>Basic function</h2>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw">library</span>(boot)</a>
+<a class="sourceLine" id="cb1-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb1-3" data-line-number="3"><span class="kw">boot</span>(<span class="dt">data =</span> data,</a>
+<a class="sourceLine" id="cb1-4" data-line-number="4">     <span class="dt">statistic =</span> fun, <span class="co"># What function are we using to generate a statistic?</span></a>
+<a class="sourceLine" id="cb1-5" data-line-number="5">     <span class="dt">R=</span>reps <span class="co"># How many times should we repeat this?,</span></a>
+<a class="sourceLine" id="cb1-6" data-line-number="6">     ... <span class="co"># Can also pass additional parameters to the function</span></a>
+<a class="sourceLine" id="cb1-7" data-line-number="7">     )</a></code></pre></div>
+</section><section id="estimating-the-mean" class="slide level2">
+<h2>Estimating the mean</h2>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="co"># Setup</span></a>
+<a class="sourceLine" id="cb2-2" data-line-number="2"><span class="kw">library</span>(boot)</a>
+<a class="sourceLine" id="cb2-3" data-line-number="3"><span class="kw">library</span>(tidyverse)</a>
+<a class="sourceLine" id="cb2-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb2-5" data-line-number="5">get_mpg_mean &lt;-<span class="st"> </span><span class="cf">function</span>(data, indices){</a>
+<a class="sourceLine" id="cb2-6" data-line-number="6">  <span class="co"># Function has to take in data and indices</span></a>
+<a class="sourceLine" id="cb2-7" data-line-number="7">  new_data =<span class="st"> </span>data[indices,] <span class="co"># Resample based on indices</span></a>
+<a class="sourceLine" id="cb2-8" data-line-number="8">  <span class="kw">return</span>(<span class="kw">mean</span>(new_data<span class="op">$</span>mpg)) <span class="co"># Return statistic of interest</span></a>
+<a class="sourceLine" id="cb2-9" data-line-number="9">}  </a>
+<a class="sourceLine" id="cb2-10" data-line-number="10"></a>
+<a class="sourceLine" id="cb2-11" data-line-number="11"><span class="co"># Create the boot object</span></a>
+<a class="sourceLine" id="cb2-12" data-line-number="12">boot_obj =<span class="st"> </span><span class="kw">boot</span>(<span class="dt">data =</span> mtcars,</a>
+<a class="sourceLine" id="cb2-13" data-line-number="13">     <span class="dt">statistic =</span> get_mpg_mean,</a>
+<a class="sourceLine" id="cb2-14" data-line-number="14">     <span class="dt">R =</span> <span class="dv">1000</span>)</a>
+<a class="sourceLine" id="cb2-15" data-line-number="15"></a>
+<a class="sourceLine" id="cb2-16" data-line-number="16">boot_obj</a>
+<a class="sourceLine" id="cb2-17" data-line-number="17">## </a>
+<a class="sourceLine" id="cb2-18" data-line-number="18">## ORDINARY NONPARAMETRIC BOOTSTRAP</a>
+<a class="sourceLine" id="cb2-19" data-line-number="19">## </a>
+<a class="sourceLine" id="cb2-20" data-line-number="20">## </a>
+<a class="sourceLine" id="cb2-21" data-line-number="21">## Call:</a>
+<a class="sourceLine" id="cb2-22" data-line-number="22">## boot(data = mtcars, statistic = get_mpg_mean, R = 1000)</a>
+<a class="sourceLine" id="cb2-23" data-line-number="23">## </a>
+<a class="sourceLine" id="cb2-24" data-line-number="24">## </a>
+<a class="sourceLine" id="cb2-25" data-line-number="25">## Bootstrap Statistics :</a>
+<a class="sourceLine" id="cb2-26" data-line-number="26">##     original      bias    std. error</a>
+<a class="sourceLine" id="cb2-27" data-line-number="27">## t1* 20.09062 -0.09566875    1.029296</a></code></pre></div>
+</section><section id="estimating-the-mean---visualization" class="slide level2">
+<h2>Estimating the mean - visualization</h2>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1">boot_obj<span class="op">$</span>t <span class="op">%&gt;%</span><span class="st"> </span>as.tibble <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb3-2" data-line-number="2"><span class="st">  </span><span class="kw">ggplot</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb3-3" data-line-number="3"><span class="st">  </span><span class="kw">geom_histogram</span>(<span class="kw">aes</span>(<span class="dt">x=</span>V1), <span class="dt">fill =</span> <span class="st">&#39;orange&#39;</span>,<span class="dt">binwidth=</span>.<span class="dv">2</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb3-4" data-line-number="4"><span class="st">  </span><span class="kw">xlab</span>(<span class="st">&#39;Mean weight in bootstrapped samples&#39;</span>) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb3-5" data-line-number="5"><span class="st">  </span><span class="kw">theme_light</span>()</a></code></pre></div>
+<p><img src="boot_files/figure-revealjs/unnamed-chunk-3-1.png" width="480" /></p>
+</section><section id="advanced-example---bootstrapped-confidence-intervals-for-regression" class="slide level2">
+<h2>Advanced example - bootstrapped confidence intervals for regression</h2>
+<ul>
+<li class="fragment">This should be easier!</li>
+</ul>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1">get_coefs &lt;-<span class="st"> </span><span class="cf">function</span>(data, indices){</a>
+<a class="sourceLine" id="cb4-2" data-line-number="2">  new_data =<span class="st"> </span>data[indices,]</a>
+<a class="sourceLine" id="cb4-3" data-line-number="3">  fit_obj =<span class="st"> </span><span class="kw">lm</span>(mpg <span class="op">~</span><span class="st"> </span>wt <span class="op">+</span><span class="st"> </span>hp <span class="op">+</span><span class="st"> </span>disp, <span class="dt">data =</span> new_data) </a>
+<a class="sourceLine" id="cb4-4" data-line-number="4">  <span class="kw">return</span>(<span class="kw">coef</span>(fit_obj))</a>
+<a class="sourceLine" id="cb4-5" data-line-number="5">  }</a>
+<a class="sourceLine" id="cb4-6" data-line-number="6">  </a>
+<a class="sourceLine" id="cb4-7" data-line-number="7">boot_obj =<span class="st"> </span><span class="kw">boot</span>(<span class="dt">data =</span> mtcars,</a>
+<a class="sourceLine" id="cb4-8" data-line-number="8">                <span class="dt">statistic =</span> get_coefs,</a>
+<a class="sourceLine" id="cb4-9" data-line-number="9">                <span class="dt">R =</span> <span class="dv">2000</span>)</a></code></pre></div>
+</section><section id="visualize-bootstrapped-coefficients" class="slide level2">
+<h2>Visualize bootstrapped coefficients</h2>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1">boot_df &lt;-<span class="st"> </span><span class="kw">as.data.frame</span>(boot_obj<span class="op">$</span>t)</a>
+<a class="sourceLine" id="cb5-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb5-3" data-line-number="3">var_names =<span class="st"> </span><span class="kw">names</span>(boot_obj<span class="op">$</span>t0)</a>
+<a class="sourceLine" id="cb5-4" data-line-number="4"><span class="kw">colnames</span>(boot_df) &lt;-<span class="st"> </span>var_names</a>
+<a class="sourceLine" id="cb5-5" data-line-number="5"></a>
+<a class="sourceLine" id="cb5-6" data-line-number="6"><span class="kw">library</span>(ggridges)</a>
+<a class="sourceLine" id="cb5-7" data-line-number="7"></a>
+<a class="sourceLine" id="cb5-8" data-line-number="8">boot_df <span class="op">%&gt;%</span><span class="st"> </span>stack <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb5-9" data-line-number="9"><span class="st">  </span><span class="kw">filter</span>(ind <span class="op">!=</span><span class="st"> &#39;(Intercept)&#39;</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb5-10" data-line-number="10"><span class="st">  </span><span class="kw">ggplot</span>() <span class="op">+</span><span class="st"> </span><span class="kw">theme_light</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb5-11" data-line-number="11"><span class="st">  </span><span class="kw">geom_density_ridges</span>(<span class="kw">aes</span>(<span class="dt">x=</span>values, <span class="dt">y=</span>ind), <span class="dt">fill=</span><span class="st">&#39;orange&#39;</span>, <span class="dt">alpha=</span>.<span class="dv">4</span>)</a></code></pre></div>
+<p><img src="boot_files/figure-revealjs/unnamed-chunk-5-1.png" width="576" /></p>
+</section><section id="calculate-confidence-intervals" class="slide level2">
+<h2>Calculate confidence intervals</h2>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1">simple_cis &lt;-<span class="st"> </span><span class="kw">sapply</span>(boot_df, quantile, <span class="dt">probs=</span><span class="kw">c</span>(.<span class="dv">025</span>, <span class="fl">.975</span>))</a>
+<a class="sourceLine" id="cb6-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb6-3" data-line-number="3"><span class="kw">print</span>(simple_cis)</a></code></pre></div>
+<pre><code>##       (Intercept)        wt          hp        disp
+## 2.5%     32.20399 -5.746330 -0.05780815 -0.01936283
+## 97.5%    42.12750 -1.802503 -0.01598518  0.01668966</code></pre>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1">cis &lt;-<span class="st"> </span><span class="kw">sapply</span>(<span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(var_names), </a>
+<a class="sourceLine" id="cb8-2" data-line-number="2">          <span class="cf">function</span>(x) <span class="kw">boot.ci</span>(boot_obj, </a>
+<a class="sourceLine" id="cb8-3" data-line-number="3">                              <span class="dt">index=</span>x,</a>
+<a class="sourceLine" id="cb8-4" data-line-number="4">                              <span class="dt">type =</span> <span class="st">&#39;bca&#39;</span>)<span class="op">$</span>bca[<span class="dv">4</span><span class="op">:</span><span class="dv">5</span>])</a>
+<a class="sourceLine" id="cb8-5" data-line-number="5"></a>
+<a class="sourceLine" id="cb8-6" data-line-number="6"><span class="kw">colnames</span>(cis) &lt;-<span class="st"> </span>var_names</a>
+<a class="sourceLine" id="cb8-7" data-line-number="7"></a>
+<a class="sourceLine" id="cb8-8" data-line-number="8"><span class="kw">print</span>(cis)</a></code></pre></div>
+<pre><code>##      (Intercept)        wt          hp        disp
+## [1,]    31.50074 -5.599185 -0.05458869 -0.02183948
+## [2,]    41.60881 -1.487569 -0.01353307  0.01393642</code></pre>
+</section><section id="use-bootstrapped-confidence-intervals" class="slide level2">
+<h2>Use bootstrapped confidence intervals</h2>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" data-line-number="1"><span class="kw">library</span>(dotwhisker)</a>
+<a class="sourceLine" id="cb10-2" data-line-number="2"><span class="kw">library</span>(broom)</a>
+<a class="sourceLine" id="cb10-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb10-4" data-line-number="4"><span class="kw">tidy</span>(<span class="kw">lm</span>(mpg <span class="op">~</span><span class="st"> </span>wt <span class="op">+</span><span class="st"> </span>hp <span class="op">+</span><span class="st"> </span>disp, <span class="dt">data=</span>mtcars), <span class="dt">conf.int =</span> T) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb10-5" data-line-number="5"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">conf.low =</span> <span class="kw">as.numeric</span>(cis[<span class="dv">1</span>,]),</a>
+<a class="sourceLine" id="cb10-6" data-line-number="6">         <span class="dt">conf.high =</span> <span class="kw">as.numeric</span>(cis[<span class="dv">2</span>,])) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb10-7" data-line-number="7"><span class="st">  </span><span class="kw">by_2sd</span>(mtcars) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb10-8" data-line-number="8"><span class="st">  </span><span class="kw">dwplot</span>(<span class="dt">show_intercept =</span> F) <span class="op">+</span><span class="st"> </span><span class="kw">theme_bw</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb10-9" data-line-number="9"><span class="st">  </span><span class="kw">theme</span>(<span class="dt">legend.position=</span><span class="st">&quot;none&quot;</span>) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb10-10" data-line-number="10"><span class="st">    </span><span class="kw">xlab</span>(<span class="st">&#39;Beta coefficient with bootstrapped 95% CIs&#39;</span>) <span class="op">+</span><span class="st"> </span><span class="kw">ylab</span>(<span class="st">&#39;Variable&#39;</span>) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb10-11" data-line-number="11"><span class="st">    </span><span class="kw">geom_vline</span>(<span class="dt">xintercept =</span> <span class="dv">0</span>, <span class="dt">colour =</span> <span class="st">&quot;grey60&quot;</span>, <span class="dt">linetype =</span> <span class="dv">2</span>) <span class="co">#</span></a></code></pre></div>
+<p><img src="boot_files/figure-revealjs/unnamed-chunk-7-1.png" width="480" /></p>
+</section></section>
+    </div>
+  </div>
+
+  <script src="boot_files/reveal.js-3.3.0.1/lib/js/head.min.js"></script>
+  <script src="boot_files/reveal.js-3.3.0.1/js/reveal.js"></script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        // Push each slide change to the browser history
+        history: true,
+        // Vertical centering of slides
+        center: false,
+        // Transition style
+        transition: 'convex', // none/fade/slide/convex/concave/zoom
+        // Transition style for full page slide backgrounds
+        backgroundTransition: 'default', // none/fade/slide/convex/concave/zoom
+
+
+
+        // Optional reveal.js plugins
+        dependencies: [
+          { src: 'boot_files/reveal.js-3.3.0.1/plugin/notes/notes.js', async: true },
+        ]
+      });
+    </script>
+  <!-- dynamically load mathjax for compatibility with self-contained -->
+  <script>
+    (function () {
+      var script = document.createElement("script");
+      script.type = "text/javascript";
+      script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+      document.getElementsByTagName("head")[0].appendChild(script);
+    })();
+  </script>
+
+<script>
+  (function() {
+    if (window.jQuery) {
+      Reveal.addEventListener( 'slidechanged', function(event) {  
+        window.jQuery(event.previousSlide).trigger('hidden');
+        window.jQuery(event.currentSlide).trigger('shown');
+      });
+    }
+  })();
+</script>
+
+
+  </body>
+</html>
