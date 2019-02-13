@@ -107,8 +107,12 @@ Introduction to boot
 Jeremy Foote
 </smaller>
 
-<img src='images/cdsc_logo.png' width='150px;'/>
+<img src='images/cdsc_logo.png' width='100px;'/><br/>
+<div style='font-size:25px;'>
+https://github.com/jdfoote/intro_to_boot
 </div>
+</div>
+
 
 </div>
 
