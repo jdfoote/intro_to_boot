@@ -1,1 +1,1 @@
-This is a very brief introduction to bootstrapping in R, using the boot package. The key file is boot.html, which Github will hopefully show as a presentation.
+This is a very brief introduction to bootstrapping in R, using the [boot](https://cran.r-project.org/web/packages/boot/index.html) package. The presentation is [online here](https://jeremydfoote.com/presentations/intro_to_boot/#/).

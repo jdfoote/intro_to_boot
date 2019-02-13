@@ -249,3 +249,5 @@ tidy(lm(mpg ~ wt + hp + disp, data=mtcars), conf.int = T) %>%
     xlab('Beta coefficient with bootstrapped 95% CIs') + ylab('Variable') + 
     geom_vline(xintercept = 0, colour = "grey60", linetype = 2) #
 ```
+
+# The End
